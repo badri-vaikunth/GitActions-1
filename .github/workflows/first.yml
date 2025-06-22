@@ -17,3 +17,5 @@ jobs:
       run: nginx -v
     - name: Node Version Check
       run: node -v
+    - name: Kubernetes Version Check
+      run: kubectl version
