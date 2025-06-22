@@ -15,3 +15,5 @@ jobs:
       run: ls -la
     - name: Nginx Version Check
       run: nginx -v
+    - name: Node Version Check
+      run: node -v
