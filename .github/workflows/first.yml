@@ -10,6 +10,6 @@ jobs:
     - name: Printing HelloWord
       run: echo "HelloWorld"
     - name: checkout the code
-      uses: actions/checkout@v4
+      uses: actions/checkout@main
     - name: Listing Files
       run: ls -la
