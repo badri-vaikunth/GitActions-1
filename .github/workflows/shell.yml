@@ -5,8 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Code Checkout
-      uses: actions/checkout@v4
+      run: actions/checkout@main
     - name: List Files
       run: ls -ltra
     - name: Run Shell Script
-      run: ./k8.sh
+      run: |
+        chmod +x k8.sh
+        ./k8.sh
