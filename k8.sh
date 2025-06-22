@@ -1,43 +1,36 @@
 #!/bin/bash
 
+# Exit on error
 set -e
 
-echo "[Step 1] Updating system and installing dependencies..."
-sudo apt-get update && sudo apt-get install -y apt-transport-https curl
+echo "🟢 Starting script..."
 
-echo "[Step 2] Adding Kubernetes GPG key..."
-sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+# 1. Update and upgrade packages
+echo "🔄 Updating system..."
+sudo apt-get update -y && sudo apt-get upgrade -y
 
-echo "[Step 3] Adding Kubernetes repo..."
-echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] \
-https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+# 2. Create a directory
+DIR_NAME="$HOME/demo_script_folder"
+echo "📂 Creating directory: $DIR_NAME"
+mkdir -p "$DIR_NAME"
 
-echo "[Step 4] Installing kubelet, kubeadm, kubectl..."
-sudo apt-get update
-sudo apt-get install -y kubelet kubeadm kubectl
+# 3. Write a file
+FILE_PATH="$DIR_NAME/system_info.txt"
+echo "📝 Writing system information to $FILE_PATH"
+{
+  echo "Date: $(date)"
+  echo "Hostname: $(hostname)"
+  echo "Uptime: $(uptime -p)"
+  echo "Logged in users:"
+  who
+} > "$FILE_PATH"
 
-echo "[Step 5] Holding package versions..."
-sudo apt-mark hold kubelet kubeadm kubectl
+# 4. Display disk usage
+echo "💾 Disk usage:"
+df -h
 
-echo "[Step 6] Disabling swap (required for Kubernetes)..."
-sudo swapoff -a
-sudo sed -i '/ swap / s/^\(.*\)$/#\1/' /etc/fstab
+# 5. Optional cleanup
+# echo "🧹 Removing created directory..."
+# rm -rf "$DIR_NAME"
 
-echo "[Step 7] Enabling required kernel modules..."
-cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-br_netfilter
-EOF
-
-sudo modprobe br_netfilter
-
-echo "[Step 8] Setting sysctl params for Kubernetes networking..."
-cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-iptables  = 1
-net.ipv4.ip_forward                 = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-EOF
-
-sudo sysctl --system
-
-echo "[✅ Done] Kubernetes components installed!"
-echo "To create a cluster: sudo kubeadm init"
+echo "✅ Script completed!"
