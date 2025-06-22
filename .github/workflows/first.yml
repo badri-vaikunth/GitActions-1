@@ -9,5 +9,7 @@ jobs:
     steps:
     - name: Printing HelloWord
       run: echo "HelloWorld"
+    - name: checkout the code
+      uses: actions/checkout@v4
     - name: Listing Files
-      run: ls
+      run: ls -la
