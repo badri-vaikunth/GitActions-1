@@ -7,9 +7,11 @@ jobs:
   job-1:
     runs-on: ubuntu-latest
     steps:
-    - name: Printing HelloWord
-      run: echo "HelloWorld"
     - name: checkout the code
       uses: actions/checkout@main
+    - name: Printing HelloWord
+      run: echo "HelloWorld"
     - name: Listing Files
       run: ls -la
+    - name: Nginx Version Check
+      run: nginx -v
