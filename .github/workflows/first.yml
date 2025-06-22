@@ -1,0 +1,13 @@
+name: My First Job
+
+on: push
+
+jobs:
+
+  job-1:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Printing HelloWord
+      run: echo "HelloWorld"
+    - name: Listing Files
+      run: ls
