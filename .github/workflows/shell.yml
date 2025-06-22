@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Code Checkout
-      run: actions/checkout@main
+      uses: actions/checkout@main
     - name: List Files
       run: ls -ltra
     - name: Run Shell Script
