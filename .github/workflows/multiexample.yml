@@ -7,7 +7,7 @@ jobs:
     - name: Build
       run: echo "Building the Code"
     - name: Create a File
-      run: mkdir playwright.txt
+      run: touch playwright.txt
     - name: Add Content to playwright file
       run: echo "This is playwright" >> playwright.txt
   test-job:
