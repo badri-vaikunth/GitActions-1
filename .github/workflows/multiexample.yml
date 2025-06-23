@@ -17,7 +17,8 @@ jobs:
     - name: Test
       run: echo "Testing the Code"
     - name: Check Existance of playwright file
-      run: if [ -e playwright.txt ]; then echo "Playwright File Exists"; fi
+      run: '[ -f playwright.txt ] && echo "Exists" || echo "Does not exist"'
+
   deploy-job:
     needs: build-job
     runs-on: ubuntu-latest
